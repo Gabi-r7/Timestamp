@@ -1,6 +1,11 @@
 async function converterParaUTC(){
-    input = document.getElementById('unix').value;
-    resposta = document.getElementById('respostaEmUTC');
+    respostaEmUTC = document.getElementById('respostaEmUTC');
+    respostaEmUnix = document.getElementById('respostaEmUnix');
+    respostaEmUTC.innerHTML = '';
+    respostaEmUnix.innerHTML = '';
+    
+    let input = document.getElementById('unix').value;
+    resposta = document.getElementById('resposta');
     const data = { input };
     const response = await fetch('/converterParaUTC', {
         method: 'POST',
@@ -10,5 +15,8 @@ async function converterParaUTC(){
         body: JSON.stringify(data)
     });
     const responseJson = await response.json();
-    resposta.innerHTML = responseJson.utc;
+    respostaEmUTC.innerHTML = responseJson.utc;
+    if (!input) {
+        respostaEmUnix.innerHTML = responseJson.unix;
+    }
 }

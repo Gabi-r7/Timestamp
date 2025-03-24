@@ -18,8 +18,16 @@ app.get('/', function(req, res) {
   });
 
 app.post('/converterParaUTC', function(req, res) {
+    let utc, unix;
     const { input } = req.body;
-    console.log(req.body);
-    let resposta = new Date(input * 1000).toUTCString();
-    res.json({ utc: resposta });
+    if (!input) {
+        unix = new Date(Date.now()).getTime() / 1000;
+        utc = new Date(Date.now()).toUTCString();
+    } else{;
+        utc = new Date(input * 1000).toUTCString();
+    }
+    res.json({ 
+        utc: utc, 
+        unix: unix
+    });
 });
