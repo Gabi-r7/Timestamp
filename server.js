@@ -17,13 +17,13 @@ app.get('/', function(req, res) {
     res.sendFile(indexFile);
   });
 
-app.post('/converterParaUTC', function(req, res) {
+app.post('/converter', function(req, res) {
     let utc, unix;
     const { input } = req.body;
     if (!input) {
         unix = new Date(Date.now()).getTime() / 1000;
         utc = new Date(Date.now()).toUTCString();
-    } else{;
+    } else{
         utc = new Date(input * 1000).toUTCString();
     }
     res.json({ 

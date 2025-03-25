@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/src/script.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/src/style.css">
+        <script src="/src/script.js"></script>
     <title>Nosso trabaio</title>
 </head>
 <body>
-    <!-- <div>
-        <h1>Tempo agora: (em unix)</h1>
-        <p id="tempoAgora">0</p>
-    </div> -->
-    <div>
-        <h1>Insira uma data válida</h1>
-        <input id="unix">
-        <button onclick="converterParaUTC()">Converter</button>
-        <div id='resposta'>
-            <h2>UTC:</h2>
-            <p id="respostaEmUTC"></p>
-            <h2>Unix:</h2>
-            <p id="respostaEmUnix"></p>
+    <main>
+        <div>
+            <h1>Insira uma data válida</h1>
+            <input id="input" type="text" placeholder="Digite uma data">
+            <button id="botao" onclick="converterData(input.value)">Converter</button>
         </div>
-    </div>
+        <table>
+            <tr>
+                <td>Título:</td>
+                <td>Data Atual</td>
+                <td>Conversão</td>
+            </tr>
+            <tr>
+                <td>UTC:</td>
+                <td id='tempoAgoraEmUTC'></td>
+                <td id="conversaoEmUTC"></td>
+            </tr>
+            <tr>
+                <td>Unix:</td>
+                <td id="tempoAgoraEmUnix"></td>
+                <td id="conversaoEmUnix"></td>
+            </tr>
+        </table>
+    </main>
 </body>
 </html>
