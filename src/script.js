@@ -25,3 +25,8 @@ async function converterData(inputValue) {
     conversaoEmUnix.innerHTML = responseJson.unix;
     conversaoEmUTC.innerHTML = responseJson.utc;
 }
+
+setInterval(() => {
+    document.getElementById('tempoAgoraEmUTC').innerHTML = new Date().toUTCString();
+    document.getElementById('tempoAgoraEmUnix').innerHTML = new Date().getTime() / 1000;
+}, 1000);
