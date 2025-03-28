@@ -56,7 +56,7 @@ app.post('/api/diff/:date1/:date2', function(req, res) {
     else if (!isNaN(date2)) {
         date2 = Number(date2);
     }
-    let returnDate1 = moment(new Date(date1)); //bug aq se for em utc
+    let returnDate1 = moment(new Date(date1));
     let returnDate2 = moment(new Date(date2));
     console.log(returnDate1, returnDate2);
 
