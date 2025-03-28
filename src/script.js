@@ -22,11 +22,17 @@ async function converterData(inputValue) {
         body: JSON.stringify(data)
     });
     const responseJson = await response.json();
+    if (responseJson.error) {
+        conversaoEmUnix.innerHTML = responseJson.error;
+        conversaoEmUTC.innerHTML = responseJson.error;
+        console.log(responseJson.error);
+        return;
+    }
     conversaoEmUnix.innerHTML = responseJson.unix;
     conversaoEmUTC.innerHTML = responseJson.utc;
 }
 
 setInterval(() => {
     document.getElementById('tempoAgoraEmUTC').innerHTML = new Date().toUTCString();
-    document.getElementById('tempoAgoraEmUnix').innerHTML = new Date().getTime() / 1000;
+    document.getElementById('tempoAgoraEmUnix').innerHTML = Math.trunc(Date.now() / 1000);
 }, 1000);

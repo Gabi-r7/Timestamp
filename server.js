@@ -19,15 +19,29 @@ app.get('/', function(req, res) {
 
 app.post('/converter', function(req, res) {
     let utc, unix;
-    const { input } = req.body;
-    if (!input) {
-        unix = new Date(Date.now()).getTime() / 1000;
+    const { inputValue } = req.body; 
+    let inputDate;
+    
+    if (!inputValue) {
         utc = new Date(Date.now()).toUTCString();
-    } else{
-        utc = new Date(input * 1000).toUTCString();
+        unix = Date.now() /1000;
+    }
+    else{
+        inputDate = Number(inputValue);
+        utc = new Date(inputDate).toUTCString();
+        unix = new Date(inputDate).getTime() / 1000;
+        if (utc === 'Invalid Date') {
+            utc = new Date(inputValue).toUTCString();
+            unix = Date.parse(new Date(inputValue)) / 1000;
+        }
+        if(utc === 'Invalid Date' && isNaN(unix)){
+            res.json({ 
+                error: 'Invalid Date' 
+            });
+        }
     }
     res.json({ 
         utc: utc, 
-        unix: unix
+        unix: Math.trunc(unix)
     });
 });
