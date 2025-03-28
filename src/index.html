@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/src/style.css">
         <script src="/src/script.js"></script>
-    <title>Nosso trabaio</title>
+    <title>Meu Timestamp</title>
 </head>
 <body>
     <main>
@@ -31,6 +31,34 @@
                 <td id="conversaoEmUnix"></td>
             </tr>
         </table>
+        <div>
+            <h1>Diferença</h1>
+            <input id="inputDiferenca1" type="text" placeholder="Digite a primeira data">
+            <button id="botao" onclick="calcularDiferenca(inputDiferenca1.value, inputDiferenca2.value)">Calcular diferença</button>
+            <input id="inputDiferenca2" type="text" placeholder="Digite a segunda data">
+            <table>
+                <tr>
+                    <td>Título:</td>
+                    <td>Diferença</td>
+                </tr>
+                <tr>
+                    <td>Dias:</td>
+                    <td id="diferencaDias"></td>
+                </tr>
+                <tr>
+                    <td>Horas:</td>
+                    <td id="diferencaHoras"></td>
+                </tr>
+                <tr>
+                    <td>Minutos:</td>
+                    <td id="diferencaMinutos"></td>
+                </tr>
+                <tr>
+                    <td>Segundos:</td>
+                    <td id="diferencaSegundos"></td>
+                </tr>
+            </table>
+        </div>
     </main>
 </body>
 </html>

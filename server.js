@@ -6,7 +6,6 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-
 app.use(express.json());
 // Servir arquivos estáticos da pasta atual
 app.use(express.static(__dirname));
@@ -17,25 +16,27 @@ app.get('/', function(req, res) {
     res.sendFile(indexFile);
   });
 
-app.post('/converter', function(req, res) {
+app.post('/api/:date?', function(req, res) {
     let utc, unix;
-    const { inputValue } = req.body; 
-    let inputDate;
+    const { date } = req.params;
+    console.log(date);
+    let returnDate;
     
-    if (!inputValue) {
+    if (!date) {
         utc = new Date(Date.now()).toUTCString();
         unix = Date.now() /1000;
     }
     else{
-        inputDate = Number(inputValue);
-        utc = new Date(inputDate).toUTCString();
-        unix = new Date(inputDate).getTime() / 1000;
-        if (utc === 'Invalid Date') {
-            utc = new Date(inputValue).toUTCString();
-            unix = Date.parse(new Date(inputValue)) / 1000;
+        returnDate = Number(date); //unix
+        utc = new Date(returnDate).toUTCString();
+        unix = new Date(returnDate).getTime();
+
+        if (utc === 'Invalid Date') { //utc já é utc
+            utc = new Date(date).toUTCString();
+            unix = Date.parse(new Date(date));
         }
         if(utc === 'Invalid Date' && isNaN(unix)){
-            res.json({ 
+            return res.json({ 
                 error: 'Invalid Date' 
             });
         }
