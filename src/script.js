@@ -1,20 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//     const input = document.getElementById('input');
-//     const conversaoEmUnix = document.getElementById('conversaoEmUnix');
-//     const conversaoEmUTC = document.getElementById('conversaoEmUTC');
-
-    
-
-//     const inputDiferenca1 = document.getElementById('inputDiferenca1');
-//     const inputDiferenca2 = document.getElementById('inputDiferenca2');
-
-//     addEventListener('keydown', (event) => {
-//         if (event.key === 'Enter') {
-            
-//         }
-//     });
-// });
-
 async function converterData(inputValue) {
     conversaoEmUTC.innerHTML = '';
     conversaoEmUnix.innerHTML = '';
@@ -32,6 +15,35 @@ async function converterData(inputValue) {
     conversaoEmUnix.innerHTML = responseJson.unix;
     conversaoEmUTC.innerHTML = responseJson.utc;
 }
+
+async function calcularDiferenca(inputDiferenca1, inputDiferenca2) {
+    let diferencaDias = document.getElementById('diferencaDias');
+    let diferencaHoras = document.getElementById('diferencaHoras');
+    let diferencaMinutos = document.getElementById('diferencaMinutos');
+    let diferencaSegundos = document.getElementById('diferencaSegundos');
+
+    diferencaDias.innerHTML = '';
+    diferencaHoras.innerHTML = '';
+    diferencaMinutos.innerHTML = '';
+    diferencaSegundos.innerHTML = '';
+    const response = await fetch(`/api/diff/${inputDiferenca1}/${inputDiferenca2}`, {
+        method: 'POST',
+    });
+    const responseJson = await response.json();
+    if (responseJson.error) {
+        diferencaDias.innerHTML = responseJson.error;
+        diferencaHoras.innerHTML = responseJson.error;
+        diferencaMinutos.innerHTML = responseJson.error;
+        diferencaSegundos.innerHTML = responseJson.error;
+        console.log(responseJson.error);
+        return;
+    }
+    diferencaDias.innerHTML = responseJson.dias;
+    diferencaHoras.innerHTML = responseJson.horas;
+    diferencaMinutos.innerHTML = responseJson.minutos;
+    diferencaSegundos.innerHTML = responseJson.segundos;
+    console.log(responseJson);
+};
 
 setInterval(() => {
     document.getElementById('tempoAgoraEmUTC').innerHTML = new Date().toUTCString();

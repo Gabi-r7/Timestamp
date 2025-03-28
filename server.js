@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const moment = require('moment');
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
@@ -44,5 +45,38 @@ app.post('/api/:date?', function(req, res) {
     res.json({ 
         utc: utc, 
         unix: Math.trunc(unix)
+    });
+});
+
+app.post('/api/diff/:date1/:date2', function(req, res) {
+    const { date1, date2 } = req.params;
+    if (!isNaN(date1)) {
+        date1 = Number(date1);
+    }
+    else if (!isNaN(date2)) {
+        date2 = Number(date2);
+    }
+    let returnDate1 = moment(new Date(date1)); //bug aq se for em utc
+    let returnDate2 = moment(new Date(date2));
+    console.log(returnDate1, returnDate2);
+
+    const dias = returnDate1.diff(returnDate2, 'days');
+    returnDate2.add(dias, 'days');
+    const horas = returnDate1.diff(returnDate2, 'hours');
+    returnDate2.add(horas, 'hours');
+    const minutos = returnDate1.diff(returnDate2, 'minutes');
+    returnDate2.add(minutos, 'minutes');
+    const segundos = returnDate1.diff(returnDate2, 'seconds');
+
+    if (dias === 0 && horas === 0 && minutos === 0 && segundos === 0) {
+        return res.json({ 
+            error: 'Invalid Date' 
+        });
+    }
+    res.json({ 
+        dias: dias, 
+        horas: horas, 
+        minutos: minutos, 
+        segundos: segundos
     });
 });
