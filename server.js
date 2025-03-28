@@ -20,36 +20,36 @@ app.get('/', function(req, res) {
 app.post('/api/:date?', function(req, res) {
     let utc, unix;
     const { date } = req.params;
-    console.log(date);
     let returnDate;
     
-    if (!date) {
-        utc = new Date(Date.now()).toUTCString();
-        unix = Date.now() /1000;
+    if (!date) { //sem data
+        returnDate = new Date();
     }
-    else{
-        returnDate = Number(date); //unix
-        utc = new Date(returnDate).toUTCString();
-        unix = new Date(returnDate).getTime();
+    else if (!isNaN(date)) { //data em milissegundos
+        returnDate = Number(date);
+        returnDate = new Date(returnDate);
+    }
+    else { //data em utc
+        returnDate = Date.parse(new Date(date));
+    }
 
-        if (utc === 'Invalid Date') { //utc já é utc
-            utc = new Date(date).toUTCString();
-            unix = Date.parse(new Date(date));
-        }
-        if(utc === 'Invalid Date' && isNaN(unix)){
-            return res.json({ 
-                error: 'Invalid Date' 
-            });
-        }
+    unix = new Date(returnDate).getTime();
+    utc = new Date(returnDate).toUTCString();
+
+    if (isNaN(unix)) {
+        return res.json({ 
+            error: 'Invalid Date' 
+        });
     }
     res.json({ 
         utc: utc, 
-        unix: Math.trunc(unix)
+        unix: unix
     });
 });
 
 app.post('/api/diff/:date1/:date2', function(req, res) {
-    const { date1, date2 } = req.params;
+    let { date1, date2 } = req.params;
+    console.log(date1, date2);
     if (!isNaN(date1)) {
         date1 = Number(date1);
     }
@@ -60,13 +60,13 @@ app.post('/api/diff/:date1/:date2', function(req, res) {
     let returnDate2 = moment(new Date(date2));
     console.log(returnDate1, returnDate2);
 
-    const dias = returnDate1.diff(returnDate2, 'days');
+    const dias = Math.abs(returnDate1.diff(returnDate2, 'days'));
     returnDate2.add(dias, 'days');
-    const horas = returnDate1.diff(returnDate2, 'hours');
+    const horas = Math.abs(returnDate1.diff(returnDate2, 'hours'));
     returnDate2.add(horas, 'hours');
-    const minutos = returnDate1.diff(returnDate2, 'minutes');
+    const minutos = Math.abs(returnDate1.diff(returnDate2, 'minutes'));
     returnDate2.add(minutos, 'minutes');
-    const segundos = returnDate1.diff(returnDate2, 'seconds');
+    const segundos = Math.abs(returnDate1.diff(returnDate2, 'seconds'));
 
     if (dias === 0 && horas === 0 && minutos === 0 && segundos === 0) {
         return res.json({ 

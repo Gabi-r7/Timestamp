@@ -47,5 +47,5 @@ async function calcularDiferenca(inputDiferenca1, inputDiferenca2) {
 
 setInterval(() => {
     document.getElementById('tempoAgoraEmUTC').innerHTML = new Date().toUTCString();
-    document.getElementById('tempoAgoraEmUnix').innerHTML = Math.trunc(Date.now() / 1000);
+    document.getElementById('tempoAgoraEmUnix').innerHTML = new Date().getTime();
 }, 1000);
