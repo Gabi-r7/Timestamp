@@ -1,8 +1,10 @@
-async function converterData(inputValue) {
+async function converterData(inputValue, fusoValue) {
     conversaoEmUTC.innerHTML = '';
     conversaoEmUnix.innerHTML = '';
 
-    const response = await fetch(`/api/${inputValue}`, {
+
+
+    const response = await fetch(`api/${inputValue}?/${fusoValue}`, {
         method: 'POST',
     });
     const responseJson = await response.json();

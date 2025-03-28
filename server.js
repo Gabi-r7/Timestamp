@@ -17,10 +17,9 @@ app.get('/', function(req, res) {
     res.sendFile(indexFile);
   });
 
-app.post('/api/:date?', function(req, res) {
-    let utc, unix;
-    const { date } = req.params;
-    let returnDate;
+app.post('/api/:date/:fuso', function(req, res) { //parei aqui (tá dando erro)
+    let utc, unix, returnDate, fusoDate;
+    const { date, fuso } = req.params;
     
     if (!date) { //sem data
         returnDate = new Date();
@@ -41,6 +40,11 @@ app.post('/api/:date?', function(req, res) {
             error: 'Invalid Date' 
         });
     }
+
+    if (fuso) {
+        fusoDate = returnDate.toLocaleString('pt-BR', { timeZone: fuso });
+    }
+
     res.json({ 
         utc: utc, 
         unix: unix
