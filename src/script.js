@@ -2,10 +2,8 @@ async function converterData(inputValue, fusoValue) {
     conversaoEmUTC.innerHTML = '';
     conversaoEmUnix.innerHTML = '';
 
-
-
-    const response = await fetch(`api/${inputValue}?/${fusoValue}`, {
-        method: 'POST',
+    const response = await fetch(`api/${inputValue}/${fusoValue}`, {
+        method: 'GET',
     });
     const responseJson = await response.json();
     if (responseJson.error) {
@@ -49,5 +47,5 @@ async function calcularDiferenca(inputDiferenca1, inputDiferenca2) {
 
 setInterval(() => {
     document.getElementById('tempoAgoraEmUTC').innerHTML = new Date().toUTCString();
-    document.getElementById('tempoAgoraEmUnix').innerHTML = new Date().getTime();
+    document.getElementById('tempoAgoraEmUnix').innerHTML = Math.trunc(new Date().getTime() / 1000);
 }, 1000);

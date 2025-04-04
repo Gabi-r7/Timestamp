@@ -17,32 +17,27 @@ app.get('/', function(req, res) {
     res.sendFile(indexFile);
   });
 
-app.post('/api/:date/:fuso', function(req, res) { //parei aqui (tá dando erro)
-    let utc, unix, returnDate, fusoDate;
+app.get('/api/:date/:fuso?', function(req, res) { //parei aqui (tá dando erro)
+    let utc, unix, returnDate
     const { date, fuso } = req.params;
     
-    if (!date) { //sem data
-        returnDate = new Date();
-    }
-    else if (!isNaN(date)) { //data em milissegundos
+    if (!isNaN(date)) { //data em milissegundos
         returnDate = Number(date);
-        returnDate = new Date(returnDate);
     }
     else { //data em utc
-        returnDate = Date.parse(new Date(date));
+        returnDate = Date.parse(date);
+        if (fuso) returnDate = returnDate + (fuso * 60 * 60 * 1000);
     }
+    
+    returnDate = Date.parse(new Date(returnDate));
 
-    unix = new Date(returnDate).getTime();
+    unix = Math.trunc(new Date(returnDate).getTime() / 1000);
     utc = new Date(returnDate).toUTCString();
 
     if (isNaN(unix)) {
         return res.json({ 
             error: 'Invalid Date' 
         });
-    }
-
-    if (fuso) {
-        fusoDate = returnDate.toLocaleString('pt-BR', { timeZone: fuso });
     }
 
     res.json({ 
