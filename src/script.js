@@ -2,7 +2,7 @@ async function converterData(inputValue, fusoValue) {
     conversaoEmUTC.innerHTML = '';
     conversaoEmUnix.innerHTML = '';
 
-    const response = await fetch(`api/${inputValue}/${fusoValue}`, {
+    const response = await fetch(`api/${inputValue}?fuso=${fusoValue}`, {
         method: 'GET',
     });
     const responseJson = await response.json();

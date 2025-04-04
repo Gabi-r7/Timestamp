@@ -17,19 +17,22 @@ app.get('/', function(req, res) {
     res.sendFile(indexFile);
   });
 
-app.get('/api/:date/:fuso?', function(req, res) { //parei aqui (tá dando erro)
-    let utc, unix, returnDate
-    const { date, fuso } = req.params;
-    
-    if (!isNaN(date)) { //data em milissegundos
-        returnDate = Number(date);
-    }
-    else { //data em utc
+app.get('/api/:date?', function(req, res) {
+    let utc, unix, returnDate;
+    const { date } = req.params;
+    const { fuso } = req.query; // Receber fuso como query string
+
+    if (!date) {
+        returnDate = Date.now(new Date());
+    } else if (!isNaN(date)) { // Data em milissegundos
+        returnDate = Number(date) * 1000;
+    } else { // Data em UTC
         returnDate = Date.parse(date);
-        if (fuso) returnDate = returnDate + (fuso * 60 * 60 * 1000);
     }
     
-    returnDate = Date.parse(new Date(returnDate));
+    if (!isNaN(fuso)) {
+        returnDate += fuso * 60 * 60 * 1000; // Ajustar para o fuso horário
+    }
 
     unix = Math.trunc(new Date(returnDate).getTime() / 1000);
     utc = new Date(returnDate).toUTCString();
