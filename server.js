@@ -51,16 +51,18 @@ app.get('/api/:date?', function(req, res) {
 
 app.post('/api/diff/:date1/:date2', function(req, res) {
     let { date1, date2 } = req.params;
-    console.log(date1, date2);
+
     if (!isNaN(date1)) {
-        date1 = Number(date1);
+        date1 = Number(date1 * 1000);
     }
-    else if (!isNaN(date2)) {
-        date2 = Number(date2);
+    if (!isNaN(date2)) {
+        date2 = Number(date2 * 1000);
     }
-    let returnDate1 = moment(new Date(date1));
-    let returnDate2 = moment(new Date(date2));
-    console.log(returnDate1, returnDate2);
+    let returnDate1 = new Date(date1).toUTCString();
+    let returnDate2 = new Date(date2).toUTCString();
+
+    returnDate1 = moment(new Date(date1));
+    returnDate2 = moment(new Date(date2));
 
     const dias = Math.abs(returnDate1.diff(returnDate2, 'days'));
     returnDate2.add(dias, 'days');
