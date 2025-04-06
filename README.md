@@ -38,9 +38,9 @@
      Onde `{date}` é a data que você quer converter e `{fuso}` é o fuso horário (opcional).
 
    - **Calcular Diferença entre Datas:**
-     Para calcular a diferença entre duas datas, você pode fazer uma requisição POST para a API:
+     Para calcular a diferença entre duas datas, você pode fazer uma requisição GET para a API:
      ```sh
-     curl -X POST "http://localhost:3000/api/diff/{date1}/{date2}"
+     http://localhost:3000/api/diff/{date1}/{date2}
      ```
      Onde `{date1}` e `{date2}` são as datas que você quer comparar.
 
