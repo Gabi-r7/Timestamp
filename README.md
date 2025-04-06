@@ -1,6 +1,27 @@
 # Trabalho_Programacao
 
-### Passo a Passo de Execução
+## Descrição do projeto
+
+O projeto é um Trabalho Prático de Desenvolvimento de um Microsserviço de Timestamp e tem como objetivo desenvolver uma aplicação full-stack em JavaScript que implemente um microsserviço de timestamp.
+
+### Funcionalidades:
+1. **API com Node.js e Express**:
+   - **Endpoint**: `/api/{date}?fuso={fuso}`
+     - **Entrada válida**: Retorna um objeto JSON com `unix` (timestamp Unix em milissegundos) e `utc` (data em formato UTC).
+     - **Entrada de timestamp Unix**: Exemplo `/api/1451001600000` retorna `{ "unix": 1451001600000, "utc": "Fri, 25 Dec 2015 00:00:00 GMT" }`.
+     - **Entrada inválida**: Retorna `{ "error": "Invalid Date" }`.
+     - **Sem parâmetro de data**: Retorna o timestamp atual em `unix` e `utc`.
+     - **Suporte à conversão de fusos horários**: Permite envio de query string opcional para definir um fuso horário específico.
+   
+2. **Endpoint adicional**: `/api/diff/{date1}/{date2}`
+   - Calcula a diferença entre duas datas em dias, horas, minutos e segundos.
+
+3. **Frontend básico**:
+   - Interface para testar e visualizar os resultados da API de forma interativa.
+
+Este projeto envolve o uso de JavaScript para backend com Node.js e Express, e a criação de uma interface frontend para interação com a API.
+
+## Passo a Passo de Execução
 
 **1. Clonar o Repositório:**
    Primeiro, você precisa clonar o repositório para o seu ambiente local.
