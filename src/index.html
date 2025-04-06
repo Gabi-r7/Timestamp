@@ -3,17 +3,26 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Define o conjunto de caracteres como UTF-8 e ajusta a visualização para dispositivos móveis -->
         <link rel="stylesheet" href="/src/style.css">
+        <!-- Importa o arquivo CSS para estilização -->
         <script src="/src/script.js"></script>
-    <title>Timestamp</title>
-</head>
+        <!-- Importa o arquivo JavaScript para funcionalidades -->
+        <title>Timestamp</title>
+        <!-- Define o título da página -->
+    </head>
 <body>
     <main>
         <div>
             <h1>Conversão de datas e fusos horários</h1>
+            <!-- Título da seção para conversão de datas -->
             <input id="input" type="text" placeholder="Digite uma data">
+            <!-- Campo de entrada para o usuário digitar uma data -->
             <select id="fusos">
-                <option value="" >Selecione um fuso horário</option>
+                <!-- Dropdown para selecionar o fuso horário -->
+                <option value="">Selecione um fuso horário</option>
+                <!-- Opção padrão para instruir o usuário -->
+                <!-- Lista de opções de fusos horários de GMT -12 a GMT +12 -->
                 <option value="-12">GMT -12</option>
                 <option value="-11">GMT -11</option>
                 <option value="-10">GMT -10</option>
@@ -39,10 +48,12 @@
                 <option value="10">GMT +10</option>
                 <option value="11">GMT +11</option>
                 <option value="12">GMT +12</option>
-                </select>
+            </select>
             <button id="botao" onclick="converterData(input.value, fusos.value)">Converter</button>
+            <!-- Botão que chama a função `converterData` passando a data e o fuso horário selecionados -->
         </div>
         <table>
+            <!-- Tabela para exibir os resultados da conversão -->
             <tr>
                 <td>Título:</td>
                 <td>Data Atual</td>
@@ -51,20 +62,29 @@
             <tr>
                 <td>UTC:</td>
                 <td id='tempoAgoraEmUTC'></td>
+                <!-- Exibe o horário atual em UTC -->
                 <td id="conversaoEmUTC"></td>
+                <!-- Exibe o resultado da conversão para UTC -->
             </tr>
             <tr>
                 <td>Unix:</td>
                 <td id="tempoAgoraEmUnix"></td>
+                <!-- Exibe o horário atual em formato UNIX -->
                 <td id="conversaoEmUnix"></td>
+                <!-- Exibe o resultado da conversão para UNIX -->
             </tr>
         </table>
         <div>
             <h1>Calcular diferença</h1>
+            <!-- Título da seção para cálculo de diferença entre datas -->
             <input id="inputDiferenca1" type="text" placeholder="Digite a primeira data">
+            <!-- Campo de entrada para a primeira data -->
             <button id="botao" onclick="calcularDiferenca(inputDiferenca1.value, inputDiferenca2.value)">Calcular diferença</button>
+            <!-- Botão que chama a função `calcularDiferenca` passando as duas datas -->
             <input id="inputDiferenca2" type="text" placeholder="Digite a segunda data">
+            <!-- Campo de entrada para a segunda data -->
             <table>
+                <!-- Tabela para exibir os resultados do cálculo de diferença -->
                 <tr>
                     <td>Título:</td>
                     <td>Diferença</td>
@@ -72,18 +92,22 @@
                 <tr>
                     <td>Dias:</td>
                     <td id="diferencaDias"></td>
+                    <!-- Exibe a diferença em dias -->
                 </tr>
                 <tr>
                     <td>Horas:</td>
                     <td id="diferencaHoras"></td>
+                    <!-- Exibe a diferença em horas -->
                 </tr>
                 <tr>
                     <td>Minutos:</td>
                     <td id="diferencaMinutos"></td>
+                    <!-- Exibe a diferença em minutos -->
                 </tr>
                 <tr>
                     <td>Segundos:</td>
                     <td id="diferencaSegundos"></td>
+                    <!-- Exibe a diferença em segundos -->
                 </tr>
             </table>
         </div>
