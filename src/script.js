@@ -36,6 +36,15 @@ async function calcularDiferenca(inputDiferenca1, inputDiferenca2) { // Função
     diferencaMinutos.innerHTML = '';
     diferencaSegundos.innerHTML = '';
 
+    // Verifica se os valores de entrada estão vazios. Se estiverem, exibe uma mensagem de erro e encerra a função.
+    if (inputDiferenca1 === '' || inputDiferenca2 === '') {
+        diferencaDias.innerHTML = 'Data inválida';
+        diferencaHoras.innerHTML = 'Data inválida';
+        diferencaMinutos.innerHTML = 'Data inválida';
+        diferencaSegundos.innerHTML = 'Data inválida';
+        return;
+    }
+
     // Faz uma requisição GET para a API, passando as duas datas como parâmetros.
     const response = await fetch(`/api/diff/${inputDiferenca1}/${inputDiferenca2}`, {
         method: 'GET',
